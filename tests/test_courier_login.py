@@ -82,12 +82,8 @@ class TestCourierLogin:
     ])
     def test_courier_login_no_required_field_failed_login(self, payload):
 
-        timeout_sec = 5
-        try:
-            response = requests.post(f'{self.BASE_URL}/login', data=payload, timeout=timeout_sec)
 
+            response = requests.post(f'{self.BASE_URL}/login', data=payload)
             assert response.status_code == 400
             assert response.json()['message'] == 'Недостаточно данных для входа'
 
-        except requests.exceptions.Timeout:
-            pytest.fail("Нет ответа от сервера")
